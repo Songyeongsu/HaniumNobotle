@@ -20,7 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.LogRecord;
 import java.util.logging.Logger;
 
-public class server
+public class Server
 {
 
   ArrayList<UserInfo> userInfo = new ArrayList<UserInfo>();

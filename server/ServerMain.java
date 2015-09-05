@@ -1,8 +1,8 @@
 
-public class servermain
+public class ServerMain
 {
   public static void main(String[] args) {
-    server Ni = new server();
+    Server Ni = new Server();
     Ni.readuser();
     Ni.initServer();
     Ni.startServer();

@@ -211,7 +211,7 @@ public class FileClient
     public void sendFile(SocketChannel socketChannel) {
       RandomAccessFile aFile = null;
       try {
-        File file = new File("Wildlife.wmv");
+        File file = new File("test.avi");
         aFile = new RandomAccessFile(file, "r");
         FileChannel inChannel = aFile.getChannel();
         ByteBuffer buffer = ByteBuffer.allocateDirect(1024);
@@ -220,12 +220,12 @@ public class FileClient
         buffer.putLong(fullen);
         buffer.flip();
         socketChannel.write(buffer);
-        buffer.clear();
+        buffer.compact();
         while ((len = inChannel.read(buffer)) != -1) {
           buffer.flip();
           socketChannel.write(buffer);
           curlen += len;
-          buffer.clear();
+          buffer.compact();
 
           if (curlen == fullen) {
             break;
@@ -237,8 +237,6 @@ public class FileClient
       } catch (FileNotFoundException e) {
         e.printStackTrace();
       } catch (IOException e) {
-        e.printStackTrace();
-      } catch (InterruptedException e) {
         e.printStackTrace();
       }
     }

@@ -1,12 +1,10 @@
-package client;
-
-public class NioClientMain
+public class ClientMain
 {
 
   public static void main(String[] args) {
 
-    NioClient niclient = new NioClient();
-    UI ui = new UI();
+    Client niclient = new Client();
+    ClientUI ui = new ClientUI();
     niclient.startClient();
   }
 

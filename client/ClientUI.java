@@ -20,16 +20,16 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class UI extends Frame
+public class ClientUI extends Frame
 {
   Label lid, lpwd;
   TextField tfId, tfPwd;
   Button ok;
-  NioClient ni = new NioClient();
+  Client ni = new Client();
 
   public static Frame f = new Frame("Login");
 
-  UI() {
+  ClientUI() {
 
     lid = new Label("ID : ", Label.RIGHT);
     lpwd = new Label("Password :", Label.RIGHT);

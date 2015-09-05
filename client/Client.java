@@ -12,7 +12,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
 import java.util.Iterator;
 
-public class NioClient
+public class Client
 {
 
   static Selector selector = null;
@@ -89,8 +89,8 @@ class Receive implements Runnable
 
     try {
       while (true) {
-        NioClient.selector.select();
-        Iterator it = NioClient.selector.selectedKeys().iterator();
+        Client.selector.select();
+        Iterator it = Client.selector.selectedKeys().iterator();
         while (it.hasNext()) {
           SelectionKey key = (SelectionKey) it.next();
           if (key.isReadable()) {
@@ -116,12 +116,12 @@ class Receive implements Runnable
       String data = decoder.decode(buffer).toString();
 
       if (data.equals("yes")) {
-        UI.closeui();
-        UI.clientUI();
+        ClientUI.closeui();
+        ClientUI.clientUI();
       }
 
       System.out.println("Receive Messge -" + data);
-      NioClient.clearBuffer(buffer);
+      Client.clearBuffer(buffer);
 
     } catch (Exception ex) {
       try {

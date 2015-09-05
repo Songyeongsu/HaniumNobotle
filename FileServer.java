@@ -171,8 +171,8 @@ public class FileServer
   public void readFileFromSocket(SocketChannel socketChannel) {
     RandomAccessFile aFile = null;
     try {
-      aFile = new RandomAccessFile("Wildlife.wmv", "rw");
-      ByteBuffer buffer = ByteBuffer.allocateDirect(1024);
+      aFile = new RandomAccessFile("output.avi", "rw");
+      ByteBuffer buffer = ByteBuffer.allocateDirect(20480);
       FileChannel fileChannel = aFile.getChannel();
 
       int len;
@@ -180,22 +180,25 @@ public class FileServer
       int count = socketChannel.read(buffer);
       buffer.flip();
       long fullen = buffer.getLong();
-      buffer.clear();
-
+      buffer.compact();
       System.out.println("SocketChannel read count " + count);
+      System.out.println("Data size is " + fullen);
 
-      System.out.println(fullen);
       while ((len = socketChannel.read(buffer)) != -1) {
         buffer.flip();
-        fileChannel.write(buffer);
-        curlen += len;
-        buffer.clear();
+        int writeLen = fileChannel.write(buffer);
+        buffer.compact();
+        curlen += writeLen;
         System.out.println(curlen + "    " + fullen);
-
-        if (curlen == fullen)
+        if (len == 0) {
+          System.out.println("! len is 0");
           break;
+        }
+        if (curlen == fullen) {
+          break;
+        }
       }
-      System.out.println(curlen + "    " + fullen);
+      System.out.println("After file read: " + curlen + "    " + fullen);
       Thread.sleep(1000);
       fileChannel.close();
       System.out.println("End of file reached..Closing channel");
