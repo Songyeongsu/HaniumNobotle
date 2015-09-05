@@ -177,10 +177,12 @@ public class FileServer
 
       int len;
       long curlen = 0;
-      socketChannel.read(buffer);
+      int count = socketChannel.read(buffer);
       buffer.flip();
       long fullen = buffer.getLong();
       buffer.clear();
+
+      System.out.println("SocketChannel read count " + count);
 
       System.out.println(fullen);
       while ((len = socketChannel.read(buffer)) != -1) {

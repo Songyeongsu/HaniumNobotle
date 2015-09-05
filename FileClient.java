@@ -189,7 +189,8 @@ public class FileClient
       try {
         while (!Thread.currentThread().isInterrupted()) {
           buffer.clear();
-          BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+          BufferedReader in = new BufferedReader(
+            new InputStreamReader(System.in));
           String message = in.readLine();
 
           if (message.equals("quit") || message.equals("exit")) {
@@ -226,15 +227,13 @@ public class FileClient
           curlen += len;
           buffer.clear();
 
-          if (curlen == fullen)
+          if (curlen == fullen) {
             break;
+          }
         }
         System.out.println(fullen + "    " + curlen);
-        Thread.sleep(1000);
         System.out.println("End of file reached..");
         aFile.close();
-        Thread.sleep(100000000);
-
       } catch (FileNotFoundException e) {
         e.printStackTrace();
       } catch (IOException e) {
@@ -242,7 +241,6 @@ public class FileClient
       } catch (InterruptedException e) {
         e.printStackTrace();
       }
-
     }
 
   }
